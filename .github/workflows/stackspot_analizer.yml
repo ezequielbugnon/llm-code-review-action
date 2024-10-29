@@ -31,7 +31,7 @@ jobs:
         response=$(curl -s --fail -H "Authorization: token $GITHUB_TOKEN" \
                -X POST \
                -d "{\"body\": \"**Revisión automática de código:**\n\n${REVIEW_OUTPUT}\"}" \
-               "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.number }}/comments") || {
+               "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/comments") || {
           echo "Error: Falló la solicitud curl"
           exit 1
         }
