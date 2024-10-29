@@ -33,9 +33,5 @@ jobs:
         REVIEW_OUTPUT: ${{ env.review_output }}
       with:
         message: |
-          ``` Hello world! :wave: Aqui está o resultado da análise:
-          
-          ${REVIEW_OUTPUT}
-          ```
-   
+           Hello world! :wave: Aqui está o resultado da análise: $REVIEW_OUTPUT
         
