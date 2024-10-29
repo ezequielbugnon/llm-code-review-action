@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os/exec"
-	"strings"
 )
 
 type FileChanges struct {
@@ -17,7 +15,7 @@ type RequestData struct {
 
 func main() {
 	// Inicializa el mapa de archivos
-	fileChanges := make(map[string]FileChanges)
+	/*fileChanges := make(map[string]FileChanges)
 
 	// Obtiene la lista de archivos cambiados desde el git
 	output, err := exec.Command("git", "diff", "--name-only", "HEAD^", "HEAD").Output()
@@ -26,7 +24,7 @@ func main() {
 		return
 	}
 
-	fmt.Printf("obtener archivos cambiados: %v\n", output)
+	log.Println("obtener", string(output))
 
 	files := strings.Split(string(output), "\n")
 	for _, file := range files {
@@ -41,13 +39,15 @@ func main() {
 			continue
 		}
 
-		fmt.Printf("obtener current: %v\n", currentContent)
+		log.Println("current", string(currentContent))
 
-		changes, err := exec.Command("git", "diff", "HEAD^", "HEAD", "--", file).Output()
+		changes, err := exec.Command("git", "diff", "--unified=0", "HEAD^", "HEAD", "--", file).Output()
 		if err != nil {
 			fmt.Printf("Error al obtener cambios de %s: %v\n", file, err)
 			continue
 		}
+
+		log.Println("changes", string(changes))
 
 		if len(changes) == 0 {
 			fmt.Printf("No changes detected for file: %s\n", file)
@@ -55,13 +55,19 @@ func main() {
 			fmt.Printf("obtener changes: %s\n", string(changes))
 		}
 
-		fmt.Printf("obtener changes: %v\n", changes)
-
 		fileChanges[file] = FileChanges{
 			Current: string(currentContent),
 			Changes: string(changes),
 		}
 	}
 
-	fmt.Printf("Respuesta de la LLM: %s\n", fileChanges)
+	jsonData, err := json.Marshal(fileChanges)
+	if err != nil {
+		fmt.Printf("Error al convertir a JSON: %v\n", err)
+		return
+	}
+
+	log.Println("json", string(jsonData))*/
+
+	fmt.Println("hi")
 }
