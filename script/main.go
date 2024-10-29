@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"os/exec"
+	"strings"
 )
 
 type FileChanges struct {
@@ -14,7 +16,7 @@ type RequestData struct {
 }
 
 func main() {
-	/*_, err := exec.Command("git", "rev-parse", "HEAD^").Output()
+	_, err := exec.Command("git", "rev-parse", "HEAD^").Output()
 	if err != nil {
 		fmt.Println("Error: No hay suficientes commits para comparar.")
 		return
@@ -54,6 +56,5 @@ func main() {
 		}
 	}
 
-	fmt.Printf("Respuesta de la LLM: %s\n", fileChanges)*/
-	fmt.Println("Respuesta de la LLM: hi")
+	fmt.Printf("Respuesta de la LLM: %s\n", fileChanges)
 }
