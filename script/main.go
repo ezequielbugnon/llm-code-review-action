@@ -24,7 +24,7 @@ func main() {
 	// Obtiene la lista de archivos cambiados desde el git
 	output, err := exec.Command("git", "diff", "--name-only", "HEAD^", "HEAD").Output()
 	if err != nil {
-		fmt.Printf("Error al obtener archivos cambiados: %v\n", err)
+		log.Println("Error al obtener archivos cambiados: ", err)
 		return
 	}
 
@@ -39,7 +39,7 @@ func main() {
 		// Obtiene el contenido actual y los cambios del archivo
 		currentContent, err := exec.Command("git", "show", "HEAD:"+file).Output()
 		if err != nil {
-			fmt.Printf("Error al obtener contenido actual de %s: %v\n", file, err)
+			log.Println("Error al obtener contenido actual de ", file, err)
 			continue
 		}
 
@@ -47,7 +47,7 @@ func main() {
 
 		changes, err := exec.Command("git", "diff", "--unified=0", "HEAD^", "HEAD", "--", file).Output()
 		if err != nil {
-			fmt.Printf("Error al obtener cambios de %s: %v\n", file, err)
+			log.Println("Error al obtener cambios de ", file, err)
 			continue
 		}
 
@@ -61,7 +61,7 @@ func main() {
 
 	jsonData, err := json.Marshal(fileChanges)
 	if err != nil {
-		fmt.Printf("Error al convertir a JSON: %v\n", err)
+		log.Println("Error al convertir a JSON:", err)
 		return
 	}
 
