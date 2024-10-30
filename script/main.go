@@ -73,5 +73,5 @@ func main() {
 
 	log.Println("json", string(jsonData))
 
-	fmt.Printf("Respuesta de la LLM: %s\n", string(jsonData))
+	fmt.Printf("Respuesta de la LLM: %s\n", "hi")
 }
