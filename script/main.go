@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os/exec"
 	"strings"
@@ -57,5 +58,11 @@ func main() {
 		}
 	}
 
-	fmt.Printf("Respuesta de la LLM: %s\n", fileChanges)
+	jsonData, err := json.Marshal(fileChanges)
+	if err != nil {
+		fmt.Printf("Error al convertir a JSON: %v\n", err)
+		return
+	}
+
+	fmt.Printf("Respuesta de la LLM: %s\n", string(jsonData))
 }
