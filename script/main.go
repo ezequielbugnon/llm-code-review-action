@@ -40,7 +40,7 @@ func main() {
 			continue
 		}
 
-		changes, err := exec.Command("git", "diff", "HEAD^", "HEAD", "--", file).Output()
+		changes, err := exec.Command("git", "diff", "--unified=0", "HEAD^", "HEAD", "--", file).Output()
 		if err != nil {
 			fmt.Printf("Error al obtener cambios de %s: %v\n", file, err)
 			continue
