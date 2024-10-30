@@ -1,11 +1,7 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"log"
-	"os/exec"
-	"strings"
 )
 
 type FileChanges struct {
@@ -19,7 +15,7 @@ type RequestData struct {
 
 func main() {
 	// Inicializa el mapa de archivos
-	fileChanges := make(map[string]FileChanges)
+	/*fileChanges := make(map[string]FileChanges)
 
 	// Obtiene la lista de archivos cambiados desde el git
 	output, err := exec.Command("git", "diff", "--name-only", "HEAD^", "HEAD").Output()
@@ -71,7 +67,7 @@ func main() {
 		return
 	}
 
-	log.Println("json", string(jsonData))
+	log.Println("json", string(jsonData))*/
 
 	fmt.Println("hi")
 }
