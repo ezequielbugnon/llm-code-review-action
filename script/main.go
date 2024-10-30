@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"os/exec"
 	"strings"
 )
@@ -27,6 +28,8 @@ func main() {
 		return
 	}
 
+	log.Println("obtener", output)
+
 	files := strings.Split(string(output), "\n")
 	for _, file := range files {
 		if file == "" {
@@ -40,11 +43,15 @@ func main() {
 			continue
 		}
 
+		log.Println("current", currentContent)
+
 		changes, err := exec.Command("git", "diff", "--unified=0", "HEAD^", "HEAD", "--", file).Output()
 		if err != nil {
 			fmt.Printf("Error al obtener cambios de %s: %v\n", file, err)
 			continue
 		}
+
+		log.Println("changes", changes)
 
 		if len(changes) == 0 {
 			fmt.Printf("No changes detected for file: %s\n", file)
@@ -63,6 +70,8 @@ func main() {
 		fmt.Printf("Error al convertir a JSON: %v\n", err)
 		return
 	}
+
+	log.Println("json", string(jsonData))
 
 	fmt.Printf("Respuesta de la LLM: %s\n", string(jsonData))
 }
