@@ -28,7 +28,7 @@ func main() {
 		return
 	}
 
-	log.Println("obtener", output)
+	log.Println("obtener", string(output))
 
 	files := strings.Split(string(output), "\n")
 	for _, file := range files {
@@ -43,7 +43,7 @@ func main() {
 			continue
 		}
 
-		log.Println("current", currentContent)
+		log.Println("current", string(currentContent))
 
 		changes, err := exec.Command("git", "diff", "--unified=0", "HEAD^", "HEAD", "--", file).Output()
 		if err != nil {
@@ -51,7 +51,7 @@ func main() {
 			continue
 		}
 
-		log.Println("changes", changes)
+		log.Println("changes", string(changes))
 
 		if len(changes) == 0 {
 			fmt.Printf("No changes detected for file: %s\n", file)
