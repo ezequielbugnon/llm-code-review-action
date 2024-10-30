@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"os/exec"
 	"strings"
 )
@@ -22,11 +24,11 @@ func main() {
 	// Obtiene la lista de archivos cambiados desde el git
 	output, err := exec.Command("git", "diff", "--name-only", "HEAD^", "HEAD").Output()
 	if err != nil {
-		fmt.Printf("Error al obtener archivos cambiados: %v\n", err)
+		log.Println("Error al obtener archivos cambiados: ", err)
 		return
 	}
 
-	fmt.Printf("obtener archivos cambiados: %v\n", output)
+	log.Println("obtener", string(output))
 
 	files := strings.Split(string(output), "\n")
 	for _, file := range files {
@@ -37,25 +39,19 @@ func main() {
 		// Obtiene el contenido actual y los cambios del archivo
 		currentContent, err := exec.Command("git", "show", "HEAD:"+file).Output()
 		if err != nil {
-			fmt.Printf("Error al obtener contenido actual de %s: %v\n", file, err)
+			log.Println("Error al obtener contenido actual de ", file, err)
 			continue
 		}
 
-		fmt.Printf("obtener current: %v\n", currentContent)
+		log.Println("current", string(currentContent))
 
-		changes, err := exec.Command("git", "diff", "HEAD^", "HEAD", "--", file).Output()
+		changes, err := exec.Command("git", "diff", "--unified=0", "HEAD^", "HEAD", "--", file).Output()
 		if err != nil {
-			fmt.Printf("Error al obtener cambios de %s: %v\n", file, err)
+			log.Println("Error al obtener cambios de ", file, err)
 			continue
 		}
 
-		if len(changes) == 0 {
-			fmt.Printf("No changes detected for file: %s\n", file)
-		} else {
-			fmt.Printf("obtener changes: %s\n", string(changes))
-		}
-
-		fmt.Printf("obtener changes: %v\n", changes)
+		log.Println("changes", string(changes))
 
 		fileChanges[file] = FileChanges{
 			Current: string(currentContent),
@@ -63,5 +59,13 @@ func main() {
 		}
 	}
 
-	fmt.Printf("Respuesta de la LLM: %s\n", fileChanges)
+	jsonData, err := json.Marshal(fileChanges)
+	if err != nil {
+		log.Println("Error al convertir a JSON:", err)
+		return
+	}
+
+	log.Println("json", string(jsonData))
+
+	fmt.Println("hi")
 }

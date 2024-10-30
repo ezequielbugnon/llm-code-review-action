@@ -14,6 +14,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      with:
+          fetch-depth: 2
 
     - name: Set up Go
       uses: actions/setup-go@v2
@@ -33,5 +35,5 @@ jobs:
         REVIEW_OUTPUT: ${{ env.review_output }}
       with:
         message: |
-           Hello world! :wave: Aqui está o resultado da análise: ${{ env.review_output }} 
+           Hello world! :wave: Aqui está o resultado da análise: ${{ env.REVIEW_OUTPUT }} 
         
