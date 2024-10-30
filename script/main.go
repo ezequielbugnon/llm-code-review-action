@@ -16,11 +16,6 @@ type RequestData struct {
 }
 
 func main() {
-	_, err := exec.Command("git", "rev-parse", "HEAD^").Output()
-	if err != nil {
-		fmt.Println("Error: No hay suficientes commits para comparar.")
-		return
-	}
 	// Inicializa el mapa de archivos
 	fileChanges := make(map[string]FileChanges)
 
