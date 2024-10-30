@@ -26,8 +26,6 @@ func main() {
 		return
 	}
 
-	fmt.Printf("obtener archivos cambiados: %v\n", output)
-
 	files := strings.Split(string(output), "\n")
 	for _, file := range files {
 		if file == "" {
@@ -41,8 +39,6 @@ func main() {
 			continue
 		}
 
-		fmt.Printf("obtener current: %v\n", currentContent)
-
 		changes, err := exec.Command("git", "diff", "HEAD^", "HEAD", "--", file).Output()
 		if err != nil {
 			fmt.Printf("Error al obtener cambios de %s: %v\n", file, err)
@@ -54,8 +50,6 @@ func main() {
 		} else {
 			fmt.Printf("obtener changes: %s\n", string(changes))
 		}
-
-		fmt.Printf("obtener changes: %v\n", changes)
 
 		fileChanges[file] = FileChanges{
 			Current: string(currentContent),
