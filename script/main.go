@@ -67,5 +67,5 @@ func main() {
 
 	log.Println("json", string(jsonData))
 
-	fmt.Println("hi")
+	fmt.Println(string(jsonData))
 }
