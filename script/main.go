@@ -63,13 +63,6 @@ type Result struct {
 	Steps            []Step   `json:"steps"`
 }
 
-type City struct {
-	City                   string `json:"city"`
-	Enable                 string `json:"enable"`
-	PorcentagemDeSeguranca int    `json:"porcentagem-de-segurança"`
-	Descricao              string `json:"descrição"`
-}
-
 func main() {
 	fileChanges := make(map[string]FileChanges)
 
@@ -113,16 +106,14 @@ func main() {
 		InputData: fileChanges,
 	}
 
-	IAStackSpot := NewStackSpotAgent("https://genai-code-buddy-api.stackspot.com/v1/quick-commands/callback/", "https://genai-code-buddy-api.stackspot.com/v1/quick-commands/create-execution/safe-explorer-api", "7f4a1870-4f93-4fe1-bd2e-146b270f269b", "ZkCg9OdKwKI2turlQkE23F5r7G2UW0wu49r4NzCvV930jIWSMP5h44ASSu38Db6F")
+	IAStackSpot := NewStackSpotAgent("https://genai-code-buddy-api.stackspot.com/v1/quick-commands/callback/", "https://genai-code-buddy-api.stackspot.com/v1/quick-commands/create-execution/code-review-github", "7f4a1870-4f93-4fe1-bd2e-146b270f269b", "ZkCg9OdKwKI2turlQkE23F5r7G2UW0wu49r4NzCvV930jIWSMP5h44ASSu38Db6F")
 
 	review, err := IAStackSpot.GetDataFromEndpoint(inputData)
 	if err != nil {
 		log.Println("Error getFromDataEndpoint ", err)
 	}
 
-	log.Println("getFromDataEndpoint ", review)
-
-	fmt.Println("hi")
+	fmt.Println(review)
 }
 
 func NewStackSpotAgent(url string, urlPost string, clientID string, clientSecret string) *StackSpoTAgent {
@@ -163,17 +154,7 @@ func (s *StackSpoTAgent) GetDataFromEndpoint(inputData InputData) (review string
 					return
 				}
 
-				answer := result.Steps[0].StepResult.Answer
-				//re := regexp.MustCompile(`(?s)\{.*\}`)
-				//jsonStr := re.FindString(answer)
-				//jsonStr = strings.TrimSpace(jsonStr)
-
-				/*err = json.Unmarshal([]byte(answer), &review)
-				if err != nil {
-					errCh <- fmt.Errorf("error deserializing the response: %w", err)
-					return
-				}*/
-				review = answer
+				review = result.Steps[0].StepResult.Answer
 
 				log.Println("The process has finished.")
 				errCh <- nil
@@ -228,25 +209,9 @@ func (s *StackSpoTAgent) getToken() (string, error) {
 	return result["access_token"].(string), nil
 }
 
-type Data struct {
-	CitiesData CitiesData `json:"input_data"`
-}
-
-type CitiesData struct {
-	Cities []string `json:"cities"`
-}
-
 func (s *StackSpoTAgent) createExecution(token string, inputData InputData) (callback string, err error) {
 
-	log.Println(inputData)
-
-	data := Data{
-		CitiesData: CitiesData{
-			Cities: []string{"sao paulo"},
-		},
-	}
-
-	jsonData, err := json.Marshal(data)
+	jsonData, err := json.Marshal(inputData)
 	if err != nil {
 		return callback, err
 	}
