@@ -25,7 +25,9 @@ jobs:
     - name: Run StackSpot Analizer
       run: |
         review_output=$(go run script/main.go)
-        echo "review_output=$review_output" >> $GITHUB_ENV 
+        echo "review_output<<EOF" >> $GITHUB_ENV
+        echo "$review_output" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
 
     - name: Post review as PR comment
       if: success()
