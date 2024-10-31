@@ -3,7 +3,6 @@ name: LLM Comparison
 on:
   pull_request:
     types: [opened, synchronize]
-
 permissions:
   pull-requests: write
 
@@ -23,19 +22,27 @@ jobs:
         go-version: '1.20'  
 
     - name: Run StackSpot Analizer
+      id: run_analysis
       run: |
         review_output=$(go run script/main.go)
         echo "review_output<<EOF" >> $GITHUB_ENV
         echo "$review_output" >> $GITHUB_ENV
         echo "EOF" >> $GITHUB_ENV
+      env:
+        URLCALLBACK: "https://genai-code-buddy-api.stackspot.com/v1/quick-commands/callback/"
+        URLEXECUTION: "https://genai-code-buddy-api.stackspot.com/v1/quick-commands/create-execution/code-review-github"
+        URLTOKEN: "https://idm.stackspot.com/itau/oidc/oauth/token"
+        CLIENTID: ${{ secrets.CLIENTID }}
+        CLIENTSECRET: ${{ secrets.CLIENTSECRET }}
+
 
     - name: Post review as PR comment
-      if: success()
+      if: steps.run_analysis.outputs.review_output != ''
       uses: thollander/actions-comment-pull-request@v3
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         REVIEW_OUTPUT: ${{ env.review_output }}
       with:
         message: |
-           Hello world! :wave: Aqui está o resultado da análise: ${{ env.REVIEW_OUTPUT }} 
+           OLá! :wave: Aqui está o resultado da análise: ${{ env.REVIEW_OUTPUT }} 
         
