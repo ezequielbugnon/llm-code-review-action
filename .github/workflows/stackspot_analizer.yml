@@ -20,10 +20,16 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: '1.20'  
+      
+    - name: Install dependencies
+      run:  |
+        cd script 
+        go mod tidy
 
     - name: Run StackSpot Analizer
       id: run_analysis
       run: |
+        export GO111MODULE=on
         review_output=$(go run script/main.go)
         echo "review_output<<EOF" >> $GITHUB_ENV
         echo "$review_output" >> $GITHUB_ENV

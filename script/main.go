@@ -17,7 +17,7 @@ func main() {
 		log.Fatalf("Error loading .env file")
 	}
 
-	urlCallback := os.Getenv("URLCALlBACK")
+	urlCallback := os.Getenv("URLCALLBACK")
 	urlExecution := os.Getenv("URLEXECUTION")
 	urlToken := os.Getenv("URLTOKEN")
 	clientID := os.Getenv("CLIENTID")
