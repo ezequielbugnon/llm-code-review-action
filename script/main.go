@@ -175,12 +175,12 @@ func (s *StackSpoTAgent) GetDataFromEndpoint(inputData InputData) (review string
 				}*/
 				review = answer
 
-				fmt.Println("The process has finished.")
+				log.Println("The process has finished.")
 				errCh <- nil
 				return
 			}
 
-			fmt.Println("The process is not finished yet, waiting for the next interval...")
+			log.Println("The process is not finished yet, waiting for the next interval...")
 		}
 	}()
 
