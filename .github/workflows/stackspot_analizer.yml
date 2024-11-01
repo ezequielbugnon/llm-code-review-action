@@ -29,8 +29,9 @@ jobs:
     - name: Run StackSpot Analizer
       id: run_analysis
       run: |
-        pwd  # Exibe o diretório atual
-        ls -la  # Lista todos os arquivos no diretório
+        cd script 
+        pwd  
+        ls -la 
         export GO111MODULE=on
         review_output=$(go run main.go)
         echo "review_output<<EOF" >> $GITHUB_ENV
