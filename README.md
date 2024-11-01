@@ -1,26 +1,27 @@
-# LLM Comparison
+# Code Review com Stack Spot llm
 
-Este proyecto utiliza un script en Go para realizar análisis de código y generar comentarios en pull requests en GitHub. El análisis se realiza a través de una API de revisión de código.
+Este projeto utiliza um script em Go para realizar análises de código e gerar comentários em pull requests no GitHub. A análise é realizada por meio de uma API de revisão de código.
 
-## Dependencias
-
-- Go 1.23 o superior
+## Dependências
+Go 1.23 ou superior
 
 ## Uso
-Este proyecto está diseñado para ejecutarse automáticamente mediante GitHub Actions. Se activa cuando se abre o sincroniza un pull request. El flujo de trabajo realiza lo siguiente:
 
-- Checkout del código: Obtiene el código del repositorio.
-- Configuración de Go: Configura el entorno de Go.
-- Instalación de dependencias: Ejecuta go mod tidy para gestionar las dependencias.
-- Ejecución del analizador: Ejecuta el script principal (main.go) que realiza la - revisión del código utilizando la API de StackSpot.
-- Publicación de la revisión: Publica el resultado del análisis como un comentario en el pull request.
+Este projeto foi desenvolvido para ser executado automaticamente através do GitHub Actions. Ele é acionado ao abrir ou sincronizar um pull request. O fluxo de trabalho realiza o seguinte:
 
-## Variables de Entorno
-Asegúrate de configurar las siguientes variables de entorno en los secretos de tu repositorio de GitHub:
+- Checkout do código: Obtém o código do repositório.
+- Configuração do Go: Configura o ambiente Go.
+- Instalação de dependências: Executa go mod tidy para gerenciar as dependências.
+- Execução do analisador: Executa o script principal (main.go) que realiza a revisão do código usando a API da StackSpot.
+- Publicação da revisão: Publica o resultado da análise como um comentário no pull request.
 
-- CLIENTID: Tu Client ID para la API de StackSpot.
-- CLIENTSECRET: Tu Client Secret para la API de StackSpot.
-- GITHUB_TOKEN: Token de acceso para publicar comentarios en el pull request.
+## Variáveis de Ambiente
+Certifique-se de configurar as seguintes variáveis de ambiente nos segredos do seu repositório GitHub:
 
-## Contribuciones
-Las contribuciones son bienvenidas. Si deseas colaborar, por favor abre un pull request o un issue para discutir tus ideas.
+- CLIENTID: Seu Client ID para a API da StackSpot.
+- CLIENTSECRET: Seu Client Secret para a API da StackSpot.
+- GITHUB_TOKEN: Token de acesso para publicar comentários no pull request.
+
+## Contribuições
+
+Contribuições são bem-vindas. Se você deseja colaborar, por favor abra um pull request ou issue para discutir suas ideias.
