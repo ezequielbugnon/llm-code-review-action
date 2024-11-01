@@ -16,6 +16,7 @@ Este projeto foi desenvolvido para ser executado automaticamente através do Git
 - Publicação da revisão: Publica o resultado da análise como um comentário no pull request.
 
 ## Variáveis de Ambiente
+
 Certifique-se de configurar as seguintes variáveis de ambiente nos segredos do seu repositório GitHub:
 
 - CLIENTID: Seu Client ID para a API da StackSpot.
