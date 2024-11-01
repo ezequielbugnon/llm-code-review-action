@@ -18,9 +18,9 @@ Este proyecto está diseñado para ejecutarse automáticamente mediante GitHub A
 ## Variables de Entorno
 Asegúrate de configurar las siguientes variables de entorno en los secretos de tu repositorio de GitHub:
 
--CLIENTID: Tu Client ID para la API de StackSpot.
--CLIENTSECRET: Tu Client Secret para la API de StackSpot.
--GITHUB_TOKEN: Token de acceso para publicar comentarios en el pull request.
+- CLIENTID: Tu Client ID para la API de StackSpot.
+- CLIENTSECRET: Tu Client Secret para la API de StackSpot.
+- GITHUB_TOKEN: Token de acceso para publicar comentarios en el pull request.
 
 ## Contribuciones
 Las contribuciones son bienvenidas. Si deseas colaborar, por favor abre un pull request o un issue para discutir tus ideas.
