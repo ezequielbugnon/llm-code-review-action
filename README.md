@@ -23,6 +23,28 @@ Certifique-se de configurar as seguintes variáveis de ambiente nos segredos do 
 - CLIENTSECRET: Seu Client Secret para a API da StackSpot.
 - GITHUB_TOKEN: Token de acesso para publicar comentários no pull request.
 
+
+## Exemplo como agregar em seu repositorio 
+
+```yml
+name: Trigger LLM Comparison
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  trigger-comparison:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger LLM Comparison Action
+        uses: ezequielbugnon/llm-code-review-action/.github/workflows/stackspot_analizer.yml@v1.0.0
+    with:
+      CLIENTID: ${{ secrets.CLIENTID }}
+      CLIENTSECRET: ${{ secrets.CLIENTSECRET }}
+```
+
 ## Contribuições
 
 Contribuições são bem-vindas. Se você deseja colaborar, por favor abra um pull request ou issue para discutir suas ideias.
