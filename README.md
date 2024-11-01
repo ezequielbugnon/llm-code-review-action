@@ -22,4 +22,5 @@ Certifique-se de configurar as seguintes variáveis de ambiente nos segredos do 
 - GITHUB_TOKEN: Token de acesso para publicar comentários no pull request.
 
 ## Contribuições
+
 Contribuições são bem-vindas. Se você deseja colaborar, por favor abra um pull request ou issue para discutir suas ideias.
