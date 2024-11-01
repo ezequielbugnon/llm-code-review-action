@@ -1,0 +1,8 @@
+.env
+.env.local
+.env.*          # Ignora cualquier archivo que comience con .env., como .env.production, .env.development
+.envrc
+
+script/.env
+script/.env.local
+script/.env.*  
