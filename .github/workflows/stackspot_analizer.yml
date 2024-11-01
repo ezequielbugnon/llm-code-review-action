@@ -44,7 +44,7 @@ jobs:
 
 
     - name: Post review as PR comment
-      if: steps.run_analysis.outputs.review_output != ''
+      if: ${{ env.review_output != '' }} 
       uses: thollander/actions-comment-pull-request@v3
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
