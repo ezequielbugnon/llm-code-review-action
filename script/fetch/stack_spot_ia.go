@@ -43,6 +43,8 @@ func (s *StackSpoTAgent) GetDataFromEndpoint(inputData InputData) (review string
 				return
 			}
 
+			log.Println(result.Steps)
+
 			if result.Progress.Status == "COMPLETED" {
 				if len(result.Steps) == 0 {
 					errCh <- fmt.Errorf("there are no steps in the result")
