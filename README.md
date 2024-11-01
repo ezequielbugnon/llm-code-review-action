@@ -6,6 +6,7 @@ Este projeto utiliza um script em Go para realizar análises de código e gerar 
 Go 1.23 ou superior
 
 ## Uso
+
 Este projeto foi desenvolvido para ser executado automaticamente através do GitHub Actions. Ele é acionado ao abrir ou sincronizar um pull request. O fluxo de trabalho realiza o seguinte:
 
 - Checkout do código: Obtém o código do repositório.
