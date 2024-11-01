@@ -16,11 +16,34 @@ Este projeto foi desenvolvido para ser executado automaticamente através do Git
 - Publicação da revisão: Publica o resultado da análise como um comentário no pull request.
 
 ## Variáveis de Ambiente
+
 Certifique-se de configurar as seguintes variáveis de ambiente nos segredos do seu repositório GitHub:
 
 - CLIENTID: Seu Client ID para a API da StackSpot.
 - CLIENTSECRET: Seu Client Secret para a API da StackSpot.
 - GITHUB_TOKEN: Token de acesso para publicar comentários no pull request.
+
+
+## Exemplo como agregar em seu repositorio 
+
+```yml
+name: Trigger LLM Comparison
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  trigger-comparison:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger LLM Comparison Action
+        uses: ezequielbugnon/llm-code-review-action/.github/workflows/stackspot_analizer.yml@v1.0.0
+    with:
+      CLIENTID: ${{ secrets.CLIENTID }}
+      CLIENTSECRET: ${{ secrets.CLIENTSECRET }}
+```
 
 ## Contribuições
 
