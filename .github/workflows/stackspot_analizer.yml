@@ -37,7 +37,7 @@ jobs:
         echo "EOF" >> $GITHUB_ENV
       env:
         URLCALLBACK: "https://genai-code-buddy-api.stackspot.com/v1/quick-commands/callback/"
-        URLEXECUTION: "https://genai-code-buddy-api.stackspot.com/v1/quick-commands/create-execution/code-review-github"
+        URLEXECUTION: "https://genai-code-buddy-api.stackspot.com/v1/quick-commands/create-execution/code-review-expert"
         URLTOKEN: "https://idm.stackspot.com/itau/oidc/oauth/token"
         CLIENTID: ${{ secrets.CLIENTID }}
         CLIENTSECRET: ${{ secrets.CLIENTSECRET }}
