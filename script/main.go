@@ -25,8 +25,6 @@ func main() {
 	log.Println(urlCallback)
 	log.Println(urlExecution)
 	log.Println(urlToken)
-	log.Println(clientID)
-	log.Println(clientSecret)
 
 	fileChanges := make(map[string]fetch.FileChanges)
 
