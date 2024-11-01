@@ -7,15 +7,9 @@ import (
 	"os/exec"
 	"script/fetch"
 	"strings"
-
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("Error loading .env file")
-	}
 
 	urlCallback := os.Getenv("URLCALLBACK")
 	urlExecution := os.Getenv("URLEXECUTION")
