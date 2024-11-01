@@ -30,8 +30,6 @@ jobs:
       id: run_analysis
       run: |
         cd script 
-        pwd  
-        ls -la 
         export GO111MODULE=on
         review_output=$(go run main.go)
         echo "review_output<<EOF" >> $GITHUB_ENV

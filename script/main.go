@@ -23,6 +23,12 @@ func main() {
 	clientID := os.Getenv("CLIENTID")
 	clientSecret := os.Getenv("CLIENTSECRET")
 
+	log.Println(urlCallback)
+	log.Println(urlExecution)
+	log.Println(urlToken)
+	log.Println(clientID)
+	log.Println(clientSecret)
+
 	fileChanges := make(map[string]fetch.FileChanges)
 
 	output, err := exec.Command("git", "diff", "--name-only", "HEAD^", "HEAD").Output()
