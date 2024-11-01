@@ -21,7 +21,7 @@ func NewStackSpotAgent(urlCallback string, urlExecution string, urlToken string,
 }
 
 func (s *StackSpoTAgent) GetDataFromEndpoint(inputData InputData) (review string, err error) {
-	ticker := time.NewTicker(time.Second * 4)
+	ticker := time.NewTicker(time.Second * 10)
 	defer ticker.Stop()
 	errCh := make(chan error, 1)
 
@@ -42,8 +42,6 @@ func (s *StackSpoTAgent) GetDataFromEndpoint(inputData InputData) (review string
 				errCh <- err
 				return
 			}
-
-			log.Println(result.Steps)
 
 			if result.Progress.Status == "COMPLETED" {
 				if len(result.Steps) == 0 {
