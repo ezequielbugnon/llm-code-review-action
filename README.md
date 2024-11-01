@@ -24,4 +24,3 @@ Asegúrate de configurar las siguientes variables de entorno en los secretos de 
 
 ## Contribuciones
 Las contribuciones son bienvenidas. Si deseas colaborar, por favor abre un pull request o un issue para discutir tus ideas.
-
