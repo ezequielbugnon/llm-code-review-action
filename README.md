@@ -1,4 +1,4 @@
-# Code Review com LLM
+# Code Review com Stack Spot
 
 Este projeto utiliza um script em Go para realizar análises de código e gerar comentários em pull requests no GitHub. A análise é realizada por meio de uma API de revisão de código.
 
