@@ -51,6 +51,7 @@ jobs:
           clientid: ${{ secrets.CLIENTID }}
           clientsecret: ${{ secrets.CLIENTSECRET }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          repo_path: '.'
 ```
 
 ## Contribuições

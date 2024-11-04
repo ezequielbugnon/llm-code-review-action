@@ -14,6 +14,9 @@ inputs:
   github_token:
     description: 'GitHub token for authentication.'
     required: true
+  repo_path:
+    description: 'Path to the repository.'
+    required: true
 outputs:
   review_output:
     description: 'Result of code review'
@@ -68,6 +71,7 @@ runs:
         CLIENTID: ${{ inputs.clientid }}
         CLIENTSECRET: ${{ inputs.clientsecret }}
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+        REPO_PATH: ${{ inputs.repo_path }}
 
     - name: Post review as PR comment
       if: ${{ env.review_output != '' }} 

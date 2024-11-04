@@ -16,6 +16,7 @@ func main() {
 	urlToken := os.Getenv("URLTOKEN")
 	clientID := os.Getenv("CLIENTID")
 	clientSecret := os.Getenv("CLIENTSECRET")
+	repoPath := os.Getenv("REPO_PATH")
 
 	log.Println(urlCallback)
 	log.Println(urlExecution)
@@ -23,7 +24,7 @@ func main() {
 
 	fileChanges := make(map[string]fetch.FileChanges)
 
-	output, err := exec.Command("git", "diff", "--name-only", "HEAD^", "HEAD").Output()
+	output, err := exec.Command("git", "-C", repoPath, "diff", "--name-only", "HEAD^", "HEAD").Output()
 	if err != nil {
 		log.Println("Error to get all files changes: ", err)
 		return
@@ -35,13 +36,13 @@ func main() {
 			continue
 		}
 
-		currentContent, err := exec.Command("git", "show", "HEAD:"+file).Output()
+		currentContent, err := exec.Command("git", "-C", repoPath, "show", "HEAD:"+file).Output()
 		if err != nil {
 			log.Println("Error to get atual file content", file, err)
 			continue
 		}
 
-		changes, err := exec.Command("git", "diff", "--unified=0", "HEAD^", "HEAD", "--", file).Output()
+		changes, err := exec.Command("git", "-C", repoPath, "diff", "--unified=0", "HEAD^", "HEAD", "--", file).Output()
 		if err != nil {
 			log.Println("Error to get file changes", file, err)
 			continue
