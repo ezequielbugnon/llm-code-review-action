@@ -24,6 +24,8 @@ runs:
     - name: Checkout code
       uses: actions/checkout@v2
       with:
+        repository: ezequielbugnon/llm-code-review-action
+        path: ./llm-code-review-action
         fetch-depth: 2
 
     - name: Set up Go
@@ -37,14 +39,14 @@ runs:
 
     - name: Install dependencies
       run: |
-        cd ${{ github.workspace }}/script 
+        cd llm-code-review-action/script
         go mod tidy
       shell: bash
 
     - name: Run StackSpot Analizer
       id: run_analysis
       run: |
-        cd ${{ github.workspace }}/script
+        cd llm-code-review-action/script
         export GO111MODULE=on
         review_output=$(go run main.go)
         echo "review_output=${review_output}" >> $GITHUB_ENV
