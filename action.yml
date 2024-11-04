@@ -44,6 +44,7 @@ runs:
     - name: Debug repo_path
       run: |
         echo "repo_path is: ${{ inputs.repo_path }}"
+      shell: bash
 
     - name: Install dependencies
       run: |
