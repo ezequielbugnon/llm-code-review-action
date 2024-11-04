@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -64,7 +65,9 @@ func (s *StackSpoTAgent) GetDataFromEndpoint(inputData InputData) (review string
 		return "", err
 	}
 
-	return review, nil
+	cleanResponse := strings.ReplaceAll(review, "```markdown", "")
+
+	return cleanResponse, nil
 }
 
 func (s *StackSpoTAgent) getToken() (string, error) {
