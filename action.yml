@@ -57,4 +57,4 @@ runs:
         REVIEW_OUTPUT: ${{ env.review_output }}
       with:
         message: |
-          OLá! :wave: Aqui está o resultado da análise: ${{ env.REVIEW_OUTPUT }} 
+          Olá! :wave: Aqui está o resultado da análise: ${{ env.REVIEW_OUTPUT }}
