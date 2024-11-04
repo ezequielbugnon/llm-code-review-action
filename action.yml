@@ -37,14 +37,14 @@ runs:
 
     - name: Install dependencies
       run: |
-        cd script 
+        cd ${{ github.workspace }}/script 
         go mod tidy
       shell: bash
 
     - name: Run StackSpot Analizer
       id: run_analysis
       run: |
-        cd script 
+        cd ${{ github.workspace }}/script
         export GO111MODULE=on
         review_output=$(go run main.go)
         echo "review_output=${review_output}" >> $GITHUB_ENV
