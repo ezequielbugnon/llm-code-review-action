@@ -26,36 +26,36 @@ runs:
   steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      with:
+        repository: ${{ inputs.repo_path }}
+        path: ./analyzed-repo  
 
-    - name: Confirm branch and commits
-      run: |
-        echo "Current branch:"
-        git branch --show-current
-        echo "Latest commits:"
-        git log -2 --oneline
-      shell: bash
+    - name: Checkout the action repository
+      uses: actions/checkout@v2
+      with:
+        repository: ezequielbugnon/llm-code-review-action 
+        path: ./llm-code-review-action
 
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
         go-version: ${{ inputs.go_version }}
 
-    - name: List files for debugging
-      run: ls -R
-      shell: bash
+    - name: Debug repo_path
+      run: echo "repo_path is: ${{ inputs.repo_path }}"
 
     - name: Install dependencies
       run: |
-        cd llm-code-review-action/script
+        cd ./llm-code-review-action/script 
         go mod tidy
       shell: bash
 
     - name: Run StackSpot Analizer
       id: run_analysis
       run: |
-        cd llm-code-review-action/script
+        cd ./llm-code-review-action/script 
         export GO111MODULE=on
-        review_output=$(go run main.go)
+        review_output=$(go run main.go) # aqui yo necesito que el main.go analice esto ./analyzed-repo y no tenga conflicto con el cd de arriba
         echo "review_output<<EOF" >> $GITHUB_ENV
         echo "$review_output" >> $GITHUB_ENV
         echo "EOF" >> $GITHUB_ENV
