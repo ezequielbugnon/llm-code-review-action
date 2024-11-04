@@ -27,22 +27,30 @@ Certifique-se de configurar as seguintes variáveis de ambiente nos segredos do 
 ## Exemplo como agregar em seu repositorio 
 
 ```yml
-name: Trigger LLM Comparison
+name: Code review
 
 on:
   pull_request:
     types: [opened, synchronize]
 
 jobs:
-  trigger-comparison:
+  trigger-ia:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
     steps:
-      - name: Trigger LLM Comparison Action
-        uses: ezequielbugnon/llm-code-review-action/.github/workflows/stackspot_analizer.yml@v1.0.0
-    with:
-      CLIENTID: ${{ secrets.CLIENTID }}
-      CLIENTSECRET: ${{ secrets.CLIENTSECRET }}
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Add comment in pull request 
+        uses: ezequielbugnon/llm-code-review-action/@main
+        with:
+          go_version: '1.23'
+          clientid: ${{ secrets.CLIENTID }}
+          clientsecret: ${{ secrets.CLIENTSECRET }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Contribuições
