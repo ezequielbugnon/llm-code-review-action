@@ -42,7 +42,8 @@ runs:
         go-version: ${{ inputs.go_version }}
 
     - name: Debug repo_path
-      run: echo "repo_path is: ${{ inputs.repo_path }}"
+      run: |
+        echo "repo_path is: ${{ inputs.repo_path }}"
 
     - name: Install dependencies
       run: |
