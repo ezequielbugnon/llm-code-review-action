@@ -28,6 +28,14 @@ runs:
         path: ./llm-code-review-action
         fetch-depth: 2
 
+    - name: Confirm branch and commits
+      run: |
+        echo "Current branch:"
+        git branch --show-current
+        echo "Latest commits:"
+        git log -2 --oneline
+      shell: bash
+
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
