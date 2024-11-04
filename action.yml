@@ -33,7 +33,8 @@ runs:
 
     - name: List files for debugging
       run: ls -R
-      
+      shell: bash
+
     - name: Install dependencies
       run: |
         cd script 
