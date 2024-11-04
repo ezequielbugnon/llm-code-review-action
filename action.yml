@@ -11,6 +11,9 @@ inputs:
   clientsecret:
     description: 'Client Secret for authentication.'
     required: true
+  github_token:
+    description: 'GitHub token for authentication.'
+    required: true
 outputs:
   review_output:
     description: 'Result of code review'
@@ -48,12 +51,13 @@ runs:
         URLTOKEN: "https://idm.stackspot.com/itau/oidc/oauth/token"
         CLIENTID: ${{ inputs.clientid }}
         CLIENTSECRET: ${{ inputs.clientsecret }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Post review as PR comment
       if: ${{ env.review_output != '' }} 
       uses: thollander/actions-comment-pull-request@v3
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
         REVIEW_OUTPUT: ${{ env.review_output }}
       with:
         message: |
