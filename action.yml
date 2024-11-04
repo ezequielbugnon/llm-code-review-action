@@ -26,10 +26,6 @@ runs:
   steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      with:
-        repository: ezequielbugnon/llm-code-review-action
-        path: ./llm-code-review-action
-        fetch-depth: 2
 
     - name: Confirm branch and commits
       run: |
