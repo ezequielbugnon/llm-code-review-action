@@ -32,6 +32,7 @@ runs:
       run: |
         cd script 
         go mod tidy
+      shell: bash
 
     - name: Run StackSpot Analizer
       id: run_analysis
@@ -39,7 +40,8 @@ runs:
         cd script 
         export GO111MODULE=on
         review_output=$(go run main.go)
-        echo "review_output=${review_output}" >> $GITHUB_ENV  
+        echo "review_output=${review_output}" >> $GITHUB_ENV
+      shell: bash
       env:
         URLCALLBACK: "https://genai-code-buddy-api.stackspot.com/v1/quick-commands/callback/"
         URLEXECUTION: "https://genai-code-buddy-api.stackspot.com/v1/quick-commands/create-execution/code-review-expert"
