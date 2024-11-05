@@ -1,12 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
-	"os/exec"
 	"script/fetch"
-	"strings"
 )
 
 func main() {
@@ -16,42 +15,13 @@ func main() {
 	urlToken := os.Getenv("URLTOKEN")
 	clientID := os.Getenv("CLIENTID")
 	clientSecret := os.Getenv("CLIENTSECRET")
-	repoPath := os.Getenv("REPO_PATH")
+	fileChangesJSON := os.Getenv("INPUT_FILECHANGES")
 
-	log.Println(urlCallback)
-	log.Println(urlExecution)
-	log.Println(urlToken)
+	var fileChanges map[string]fetch.FileChanges
 
-	fileChanges := make(map[string]fetch.FileChanges)
-
-	output, err := exec.Command("git", "-C", repoPath, "diff", "--name-only", "HEAD^", "HEAD").Output()
-	if err != nil {
-		log.Println("Error to get all files changes: ", err)
-		return
-	}
-
-	files := strings.Split(string(output), "\n")
-	for _, file := range files {
-		if file == "" {
-			continue
-		}
-
-		currentContent, err := exec.Command("git", "-C", repoPath, "show", "HEAD:"+file).Output()
-		if err != nil {
-			log.Println("Error to get atual file content", file, err)
-			continue
-		}
-
-		changes, err := exec.Command("git", "-C", repoPath, "diff", "--unified=0", "HEAD^", "HEAD", "--", file).Output()
-		if err != nil {
-			log.Println("Error to get file changes", file, err)
-			continue
-		}
-
-		fileChanges[file] = fetch.FileChanges{
-			Current: string(currentContent),
-			Changes: string(changes),
-		}
+	if err := json.Unmarshal([]byte(fileChangesJSON), &fileChanges); err != nil {
+		fmt.Fprintf(os.Stderr, "Error to parser fileChanges: %v\n", err)
+		os.Exit(1)
 	}
 
 	log.Println("Files sending to review", len(fileChanges))

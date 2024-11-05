@@ -5,17 +5,17 @@ inputs:
     description: 'Go version to use.'
     required: true
     default: '1.23'
-  clientid:
+  client_id:
     description: 'Client ID for authentication.'
     required: true
-  clientsecret:
+  client_secret:
     description: 'Client Secret for authentication.'
     required: true
   github_token:
     description: 'GitHub token for authentication.'
     required: true
-  repo_path:
-    description: 'Path to the repository.'
+  files_changes: 
+    description: 'Files for Analisis'
     required: true
 outputs:
   review_output:
@@ -24,12 +24,6 @@ outputs:
 runs:
   using: 'composite'
   steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      with:
-        repository: ${{ inputs.repo_path }}
-        path: ./analyzed-repo  
-
     - name: Checkout the action repository
       uses: actions/checkout@v2
       with:
@@ -40,11 +34,6 @@ runs:
       uses: actions/setup-go@v2
       with:
         go-version: ${{ inputs.go_version }}
-
-    - name: Debug repo_path
-      run: |
-        echo "repo_path is: ${{ inputs.repo_path }}"
-      shell: bash
 
     - name: Install dependencies
       run: |
@@ -66,10 +55,10 @@ runs:
         URLCALLBACK: "https://genai-code-buddy-api.stackspot.com/v1/quick-commands/callback/"
         URLEXECUTION: "https://genai-code-buddy-api.stackspot.com/v1/quick-commands/create-execution/code-review-expert"
         URLTOKEN: "https://idm.stackspot.com/itau/oidc/oauth/token"
-        CLIENTID: ${{ inputs.clientid }}
-        CLIENTSECRET: ${{ inputs.clientsecret }}
+        CLIENTID: ${{ inputs.client_id }}
+        CLIENTSECRET: ${{ inputs.client_secret }}
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
-        REPO_PATH: ${{ inputs.repo_path }}
+        INPUT_FILECHANGES: ${{ inputs.files_changes}}
 
     - name: Post review as PR comment
       if: ${{ env.review_output != '' }} 
