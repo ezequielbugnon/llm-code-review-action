@@ -27,7 +27,7 @@ Certifique-se de configurar as seguintes variáveis de ambiente nos segredos do 
 ## Exemplo como agregar em seu repositorio 
 
 ```yml
-name: Code review
+name: Trigger llm
 
 on:
   pull_request:
@@ -43,15 +43,43 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v2
-
-      - name: Add comment in pull request 
+        with:
+          fetch-depth: 0
+          
+      - name: Get changes in files
+        id: capture_changes
+        run: |
+            files=$(git diff --name-only FETCH_HEAD HEAD)
+          
+            echo "Changed files: $files" 
+          
+            if [ -z "$files" ]; then
+                echo "No files changed."
+                echo "fileChanges={}" >> $GITHUB_ENV
+                exit 0
+            fi
+          
+            jsonOutput="{"
+          
+            for file in $files; do
+              currentContent=$(cat "$file" || echo "Cannot read file")
+              changes=$(git diff --unified=0 HEAD^ HEAD -- "$file" || echo "No changes detected")
+              fileChangesJson=$(jq -c -n --arg current "$currentContent" --arg changes "$changes" '{current: $current, changes: $changes}')
+              jsonOutput+="\"$file\": $fileChangesJson,"
+            done
+          
+            jsonOutput="${jsonOutput%,}}"
+            echo "Constructed JSON for fileChanges: $jsonOutput"
+            printf "fileChanges=%s\n" "$jsonOutput" >> $GITHUB_ENV
+        
+      - name: Code review in pull request
         uses: ezequielbugnon/llm-code-review-action/@main
         with:
           go_version: '1.23'
-          clientid: ${{ secrets.CLIENTID }}
-          clientsecret: ${{ secrets.CLIENTSECRET }}
+          client_id: ${{ secrets.CLIENTID }}
+          client_secret: ${{ secrets.CLIENTSECRET }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          repo_path: '.'
+          files_changes: ${{ env.fileChanges }}
 ```
 
 ## Contribuições
