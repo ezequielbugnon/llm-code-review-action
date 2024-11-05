@@ -24,7 +24,7 @@ Certifique-se de configurar as seguintes variáveis de ambiente nos segredos do 
 - GITHUB_TOKEN: Token de acesso para publicar comentários no pull request.
 
 
-## Exemplo como agregar em seu repositorio 
+## Exemplo de como adicionar ao seu repositório
 
 ```yml
 name: Trigger llm
